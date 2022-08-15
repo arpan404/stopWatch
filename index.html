@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>StopWatch</title>
+    <style>
+      body {
+        background-color: black;
+      }
+      * {
+        padding: 0;
+        margin: 0;
+        box-sizing: border-box;
+        font-family: "Gill Sans", "Gill Sans MT", Calibri, "Trebuchet MS",
+          sans-serif;
+      }
+      .main {
+        display: flex;
+        flex-wrap: wrap;
+        flex-direction: column;
+        width: 100%;
+        height: 100vh;
+        justify-content: center;
+        align-items: center;
+        background-color: rgb(255, 137, 78);
+      }
+      .container {
+        width: auto;
+        max-width: 300px;
+        color: white;
+
+        padding: 20px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        font-size: 70px;
+      }
+      #ms {
+        font-size: 20px;
+      }
+      .Btn {
+        width: 70px;
+        height: 70px;
+        font-size: 20px;
+        border-radius: 35px;
+        border: none;
+        background-color: aliceblue;
+        margin: 10px;
+      }
+      .container span {
+        margin: 2px;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="main">
+      <div class="container">
+        <span id="hr"></span>
+        <span>:</span>
+        <span id="min"></span>
+        <span>:</span>
+        <span id="sec"></span>
+        <span id="ms"></span>
+      </div>
+      <div>
+        <input type="button" value="Start" class="Btn" id="startStop" />
+        <input type="button" value="Reset" class="Btn" id="reset" />
+      </div>
+    </div>
+    <script>
+      const msCont = document.getElementById("ms");
+      const secCont = document.getElementById("sec");
+      const minCont = document.getElementById("min");
+      const hrCont = document.getElementById("hr");
+      const startStop = document.getElementById("startStop");
+      const lapReset = document.getElementById("reset");
+      msCont.innerHTML = "00";
+      secCont.innerHTML = "00";
+      minCont.innerHTML = "00";
+      hrCont.innerHTML = "00";
+
+      let ms = 0;
+      let sec = 0;
+      let min = 0;
+      let isStop = false;
+      let interval;
+
+      startStop.addEventListener("click", (e) => {
+        if (e.target.value === "Start") {
+          isStop = false;
+          clearInterval(interval);
+          startCount();
+          e.target.value = "Stop";
+        } else {
+          e.target.value = "Start";
+          isStop = true;
+          clearInterval(interval);
+        }
+      });
+      reset.addEventListener("click", () => {
+        ms = 0;
+        sec = 0;
+        min = 0;
+        hr = 0;
+        isStop = true;
+        msCont.innerHTML = "0" + ms;
+        secCont.innerHTML = "0" + sec;
+        minCont.innerHTML = "0" + min;
+        hrCont.innerHTML = "0" + hr;
+        clearInterval(interval);
+        startStop.value = "Start";
+      });
+
+      function startCount() {
+        interval = setInterval(() => {
+          if (ms === 1000) {
+            ms = 0;
+            if (!isStop) {
+              updateSecond();
+            } else {
+              return null;
+            }
+          }
+          if (!isStop) {
+            ms += 10;
+          }
+
+          if (ms >= 100) {
+            msCont.innerHTML = ms / 10;
+          }
+          if (ms == 10) {
+            msCont.innerHTML = "0" + ms / 10;
+          }
+          if (ms < 10) {
+            msCont.innerHTML = "0" + ms;
+          }
+        }, 10);
+      }
+
+      const updateSecond = () => {
+        sec += 1;
+        if (sec === 60) {
+          sec = 0;
+          updateMinute();
+        }
+        if (sec >= 10) {
+          secCont.innerHTML = sec;
+        }
+        if (sec < 10) {
+          secCont.innerHTML = "0" + sec;
+        }
+      };
+      const updateMinute = () => {
+        min += 1;
+        if (min === 60) {
+          min = 0;
+          updateHour();
+        }
+        if (min >= 10) {
+          minCont.innerHTML = min;
+        }
+        if (sec < 10) {
+          minCont.innerHTML = "0" + min;
+        }
+      };
+    </script>
+  </body>
+</html>
