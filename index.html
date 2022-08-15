@@ -48,7 +48,9 @@
         border: none;
         background-color: aliceblue;
         margin: 10px;
+        cursor: pointer;
       }
+      
       .container span {
         margin: 2px;
       }
@@ -84,6 +86,7 @@
       let ms = 0;
       let sec = 0;
       let min = 0;
+      let hr = 0;
       let isStop = false;
       let interval;
 
@@ -161,8 +164,17 @@
         if (min >= 10) {
           minCont.innerHTML = min;
         }
-        if (sec < 10) {
+        if (min < 10) {
           minCont.innerHTML = "0" + min;
+        }
+      };
+      const updateHour = () => {
+        hr += 1;
+        if (hr < 10) {
+          hrCont.innerHTML = "0" + hr;
+        }
+        if (hr >= 10) {
+          hrCont.innerHTML = hr;
         }
       };
     </script>
