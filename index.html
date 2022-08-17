@@ -3,7 +3,10 @@
   <head>
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="description" content="Online Stopwatch made with pure HTML, CSS and Javascript">
+    <meta
+      name="description"
+      content="Online Stopwatch made with pure HTML, CSS and Javascript"
+    />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
     <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
@@ -209,68 +212,70 @@
           }
         }
       });
-
       function startCount() {
-        interval = setInterval(() => {
-          if (ms === 1000) {
-            ms = 0;
-            if (!isStop) {
-              updateSecond();
-            } else {
-              return null;
-            }
-          }
-          if (!isStop) {
-            ms += 10;
-          }
-
-          if (ms >= 100) {
-            msCont.innerHTML = ms / 10;
-          }
-          if (ms == 10) {
-            msCont.innerHTML = "0" + ms / 10;
-          }
-          if (ms < 10) {
-            msCont.innerHTML = "0" + ms;
-          }
-        }, 10);
+  interval = setInterval(() => {
+    if (ms === 1000) {
+      ms = 0;
+      if (!isStop) {
+        updateSecond();
+      } else {
+        return null;
       }
+    }
+    if (!isStop) {
+      ms += 10;
+    }
 
-      const updateSecond = () => {
-        sec += 1;
-        if (sec === 60) {
-          sec = 0;
-          updateMinute();
-        }
-        if (sec >= 10) {
-          secCont.innerHTML = sec;
-        }
-        if (sec < 10) {
-          secCont.innerHTML = "0" + sec;
-        }
-      };
-      const updateMinute = () => {
-        min += 1;
-        if (min === 60) {
-          min = 0;
-          updateHour();
-        }
-        if (min >= 10) {
-          minCont.innerHTML = min;
-        }
-        if (min < 10) {
-          minCont.innerHTML = "0" + min;
-        }
-      };
-      const updateHour = () => {
-        hr += 1;
-        if (hr < 10) {
-          hrCont.innerHTML = "0" + hr;
-        }
-        if (hr >= 10) {
-          hrCont.innerHTML = hr;
-        }
-      };
+    if (ms >= 100) {
+      msCont.innerHTML = ms / 10;
+    }
+    if (ms == 10) {
+      msCont.innerHTML = "0" + ms / 10;
+    }
+    if (ms < 10) {
+      msCont.innerHTML = "0" + ms;
+    }
+  }, 10);
+}
+
+const updateSecond = () => {
+  sec += 1;
+  if (sec === 60) {
+    sec = 0;
+    updateMinute();
+  }
+  if (sec >= 10) {
+    secCont.innerHTML = sec;
+  }
+  if (sec < 10) {
+    secCont.innerHTML = "0" + sec;
+  }
+};
+const updateMinute = () => {
+  min += 1;
+  if (min === 60) {
+    min = 0;
+    updateHour();
+  }
+  if (min >= 10) {
+    minCont.innerHTML = min;
+  }
+  if (min < 10) {
+    minCont.innerHTML = "0" + min;
+  }
+};
+const updateHour = () => {
+  hr += 1;
+  if (hr < 10) {
+    hrCont.innerHTML = "0" + hr;
+  }
+  if (hr >= 10) {
+    hrCont.innerHTML = hr;
+  }
+};
+Ï
+      
     </script>
+    
   </body>
 </html>
