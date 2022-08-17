@@ -193,9 +193,13 @@
           let lapHr = hr >= 10 ? hr : "0" + hr;
           let lapMin = min >= 10 ? min : "0" + min;
           let lapSec = sec >= 10 ? sec : "0" + sec;
-          let lapMs = ms / 10 >= 10 ? ms / 10 : "0" + ms;
-          if (lapMs.length >= 3) {
-            lapMs = lapMs.slice(1, 3);
+          let lapMs = ms % 10 ===0 ? ms / 10 : ms;
+          if (lapMs === 100){
+            lapSec += 1;
+            lapMs =0;
+          }
+          if (lapMs<10) {
+            lapMs = "0" + lapMs ;
           }
 
           let toAppendLap = `${
