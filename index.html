@@ -3,7 +3,13 @@
   <head>
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="description" content="Online Stopwatch made with pure HTML, CSS and Javascript">
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
+    <link rel="icon" type="image/png" href="/android-chrome-512x512.png" />
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png" />
+    <link rel="manifest" href="/site.webmanifest" />
     <title>StopWatch</title>
     <style>
       body {
@@ -21,16 +27,16 @@
         flex-wrap: wrap;
         flex-direction: column;
         width: 100%;
-        height: 100vh;
+        min-height: 100vh;
         justify-content: center;
         align-items: center;
         background-color: rgb(255, 137, 78);
+        padding-bottom: 50px;
       }
       .container {
         width: auto;
         max-width: 300px;
         color: white;
-
         padding: 20px;
         display: flex;
         justify-content: center;
@@ -50,9 +56,50 @@
         margin: 10px;
         cursor: pointer;
       }
-      
+
       .container span {
         margin: 2px;
+      }
+      .lapsContainer {
+        display: inline;
+        max-width: 350px;
+        width: 100%;
+        max-height: 250px;
+        min-height: 250px;
+        overflow-y: scroll;
+        background-color: rgba(255, 79, 79, 0.734);
+        margin-top: 20px;
+        border-radius: 20px;
+        padding: 10px 0px;
+      }
+
+      .lap {
+        width: 90%;
+        display: flex;
+        justify-content: space-between;
+        margin-left: 5%;
+        font-size: 22px;
+        color: rgb(248, 248, 248);
+        margin-top: 10px;
+        padding-bottom: 2px;
+      }
+      .lapLine {
+        width: 92%;
+        margin-left: 4%;
+        height: 2px;
+        background-color: rgb(97, 97, 97);
+      }
+      .lapsText {
+        font-size: 22px;
+        color: white;
+        width: 100%;
+        text-align: center;
+      }
+      .lapMs {
+        font-size: 12px;
+        position: relative;
+        top: -8px;
+        left: 2px;
       }
     </style>
   </head>
@@ -70,6 +117,8 @@
         <input type="button" value="Start" class="Btn" id="startStop" />
         <input type="button" value="Reset" class="Btn" id="reset" />
       </div>
+
+      <div class="lapsContainer" id="lapsContainer"></div>
     </div>
     <script>
       const msCont = document.getElementById("ms");
@@ -78,6 +127,7 @@
       const hrCont = document.getElementById("hr");
       const startStop = document.getElementById("startStop");
       const lapReset = document.getElementById("reset");
+      const lapsCont = document.getElementById("lapsContainer");
       msCont.innerHTML = "00";
       secCont.innerHTML = "00";
       minCont.innerHTML = "00";
@@ -89,6 +139,13 @@
       let hr = 0;
       let isStop = false;
       let interval;
+      let noLap = 0;
+      if (noLap === 0) {
+        lapsCont.style.opacity = 0;
+      }
+      if (noLap > 0) {
+        lapsCont.style.opacity = 1;
+      }
 
       startStop.addEventListener("click", (e) => {
         if (e.target.value === "Start") {
@@ -96,24 +153,61 @@
           clearInterval(interval);
           startCount();
           e.target.value = "Stop";
+          lapReset.value = "Lap";
         } else {
           e.target.value = "Start";
           isStop = true;
           clearInterval(interval);
+          lapReset.value = "Reset";
         }
       });
-      reset.addEventListener("click", () => {
-        ms = 0;
-        sec = 0;
-        min = 0;
-        hr = 0;
-        isStop = true;
-        msCont.innerHTML = "0" + ms;
-        secCont.innerHTML = "0" + sec;
-        minCont.innerHTML = "0" + min;
-        hrCont.innerHTML = "0" + hr;
-        clearInterval(interval);
-        startStop.value = "Start";
+      reset.addEventListener("click", (e) => {
+        if (e.target.value === "Reset") {
+          ms = 0;
+          sec = 0;
+          min = 0;
+          hr = 0;
+          isStop = true;
+          msCont.innerHTML = "0" + ms;
+          secCont.innerHTML = "0" + sec;
+          minCont.innerHTML = "0" + min;
+          hrCont.innerHTML = "0" + hr;
+          clearInterval(interval);
+          startStop.value = "Start";
+          lapsCont.innerHTML = "";
+          noLap = 0;
+          if (noLap === 0) {
+            lapsCont.style.opacity = 0;
+          }
+          if (noLap > 0) {
+            lapsCont.style.opacity = 1;
+          }
+        } else {
+          noLap += 1;
+          let lapHr = hr >= 10 ? hr : "0" + hr;
+          let lapMin = min >= 10 ? min : "0" + min;
+          let lapSec = sec >= 10 ? sec : "0" + sec;
+          let lapMs = ms / 10 >= 10 ? ms / 10 : "0" + ms;
+          if (lapMs.length >= 3) {
+            lapMs = lapMs.slice(1, 3);
+          }
+
+          let toAppendLap = `${
+            noLap === 1 ? '<div class="lapsText">Laps</div>' : ""
+          }<div class = "lap">
+           <div class = "lapTitle">
+            Lap #${noLap}
+           </div>
+           <div>${lapHr}:${lapMin}:${lapSec}<span class = "lapMs">${lapMs}</span></div>
+        </div><div class = "lapLine"></div>`;
+          lapsCont.innerHTML += toAppendLap;
+          if (noLap === 0) {
+            lapsCont.style.opacity = 0;
+          }
+          if (noLap > 0) {
+            lapsCont.style.opacity = 1;
+          }
+        }
       });
 
       function startCount() {
