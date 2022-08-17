@@ -50,11 +50,10 @@
         font-size: 20px;
       }
       .Btn {
-        width: 90px;
+        width: 70px;
         height: 70px;
         font-size: 20px;
         border-radius: 35px;
-        border: solid 1px white;
         color: black;
         background-color: aliceblue;
         margin: 10px;
@@ -214,69 +213,67 @@
         }
       });
       function startCount() {
-  interval = setInterval(() => {
-    if (ms === 1000) {
-      ms = 0;
-      if (!isStop) {
-        updateSecond();
-      } else {
-        return null;
+        interval = setInterval(() => {
+          if (ms === 1000) {
+            ms = 0;
+            if (!isStop) {
+              updateSecond();
+            } else {
+              return null;
+            }
+          }
+          if (!isStop) {
+            ms += 10;
+          }
+
+          if (ms >= 100) {
+            msCont.innerHTML = ms / 10;
+          }
+          if (ms == 10) {
+            msCont.innerHTML = "0" + ms / 10;
+          }
+          if (ms < 10) {
+            msCont.innerHTML = "0" + ms;
+          }
+        }, 10);
       }
-    }
-    if (!isStop) {
-      ms += 10;
-    }
 
-    if (ms >= 100) {
-      msCont.innerHTML = ms / 10;
-    }
-    if (ms == 10) {
-      msCont.innerHTML = "0" + ms / 10;
-    }
-    if (ms < 10) {
-      msCont.innerHTML = "0" + ms;
-    }
-  }, 10);
-}
-
-const updateSecond = () => {
-  sec += 1;
-  if (sec === 60) {
-    sec = 0;
-    updateMinute();
-  }
-  if (sec >= 10) {
-    secCont.innerHTML = sec;
-  }
-  if (sec < 10) {
-    secCont.innerHTML = "0" + sec;
-  }
-};
-const updateMinute = () => {
-  min += 1;
-  if (min === 60) {
-    min = 0;
-    updateHour();
-  }
-  if (min >= 10) {
-    minCont.innerHTML = min;
-  }
-  if (min < 10) {
-    minCont.innerHTML = "0" + min;
-  }
-};
-const updateHour = () => {
-  hr += 1;
-  if (hr < 10) {
-    hrCont.innerHTML = "0" + hr;
-  }
-  if (hr >= 10) {
-    hrCont.innerHTML = hr;
-  }
-};
-Ï
-      
+      const updateSecond = () => {
+        sec += 1;
+        if (sec === 60) {
+          sec = 0;
+          updateMinute();
+        }
+        if (sec >= 10) {
+          secCont.innerHTML = sec;
+        }
+        if (sec < 10) {
+          secCont.innerHTML = "0" + sec;
+        }
+      };
+      const updateMinute = () => {
+        min += 1;
+        if (min === 60) {
+          min = 0;
+          updateHour();
+        }
+        if (min >= 10) {
+          minCont.innerHTML = min;
+        }
+        if (min < 10) {
+          minCont.innerHTML = "0" + min;
+        }
+      };
+      const updateHour = () => {
+        hr += 1;
+        if (hr < 10) {
+          hrCont.innerHTML = "0" + hr;
+        }
+        if (hr >= 10) {
+          hrCont.innerHTML = hr;
+        }
+      };
+      Ï;
     </script>
-    
   </body>
 </html>
