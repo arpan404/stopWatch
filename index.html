@@ -8,7 +8,7 @@
       content="Online Stopwatch made with pure HTML, CSS and Javascript"
     />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta property="og:image" content="/android-chrome-512x512.png">
+    <meta property="og:image" content="/android-chrome-512x512.png" />
     <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
     <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
     <link rel="icon" type="image/png" href="/android-chrome-512x512.png" />
@@ -55,7 +55,7 @@
         height: 80px;
         font-size: 20px;
         border-radius: 40px;
-      
+
         color: black;
         border: none;
         background-color: white;
@@ -191,14 +191,14 @@
           }
         } else {
           noLap += 1;
-          
-          let lapMs = ms % 10 ===0 ? ms / 10 : ms;
-          if (lapMs === 100){
+
+          let lapMs = ms % 10 === 0 ? ms / 10 : ms;
+          if (lapMs === 100) {
             lapSec += 1;
-            lapMs =0;
+            lapMs = 0;
           }
-          if (lapMs<10) {
-            lapMs = "0" + lapMs ;
+          if (lapMs < 10) {
+            lapMs = "0" + lapMs;
           }
           let lapHr = hr >= 10 ? hr : "0" + hr;
           let lapMin = min >= 10 ? min : "0" + min;
@@ -282,7 +282,6 @@
           hrCont.innerHTML = hr;
         }
       };
-      Ï;
     </script>
   </body>
 </html>
